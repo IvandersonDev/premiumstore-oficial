@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Premium Store - Streamings e Licenças Digitais</title>
+    <meta name="description" content="Premium Store - Acesse plataformas premium de streaming, design e IA pelo menor preço. Netflix, YouTube Premium, Canva Pro, ChatGPT Plus e mais com entrega rápida e suporte dedicado.">
+    <!-- Open Graph / Redes Sociais -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Premium Store - Streamings e Licenças Digitais">
+    <meta property="og:description" content="Seus apps e streamings favoritos pelo menor preço. Entrega rápida e garantia total.">
+    <!-- TODO: Adicione a URL da sua imagem de capa e do site abaixo -->
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='15' width='100' height='100' fill='%23D4AF37'/><text x='50%25' y='72' font-size='65' font-weight='bold' font-family='Arial' text-anchor='middle' fill='%230A0B0D'>P</text></svg>">
+    <!-- Preconnect para carregamento mais rápido dos CDNs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <!-- Tailwind CSS para estilização rápida e moderna -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter para legibilidade corporativa -->
@@ -47,6 +61,52 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #D4AF37;
+        }
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Animação de entrada dos cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        /* Botão flutuante do WhatsApp */
+        @keyframes pulseRing {
+            0% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0.4); }
+            70% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 12px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4), 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 40;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            animation: pulseRing 2s ease-out infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -163,7 +223,10 @@
                     <i class="fa-solid fa-volleyball mr-1.5"></i> Esportes
                 </button>
                 <button onclick="setCategory('design')" id="tab-design" class="category-tab px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 bg-premiumCard text-gray-400 hover:text-white hover:bg-gray-800">
-                    <i class="fa-solid fa-palette mr-1.5"></i> Design & IA
+                    <i class="fa-solid fa-palette mr-1.5"></i> Design
+                </button>
+                <button onclick="setCategory('ia')" id="tab-ia" class="category-tab px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 bg-premiumCard text-gray-400 hover:text-white hover:bg-gray-800">
+                    <i class="fa-solid fa-microchip mr-1.5"></i> IA & Tecnologia
                 </button>
             </div>
 
@@ -275,10 +338,15 @@
                 Os logotipos e marcas de terceiros exibidos nesta página são de propriedade de seus respectivos donos. Nós não possuímos filiação direta com as marcas oficiais citadas.
             </p>
             <div class="border-t border-gray-900/50 pt-6">
-                <p class="text-gray-600 text-xs">&copy; 2026 Premium Store. Todos os direitos reservados.</p>
+                <p class="text-gray-600 text-xs">&copy; <script>document.write(new Date().getFullYear())</script> Premium Store. Todos os direitos reservados.</p>
             </div>
         </div>
     </footer>
+
+    <!-- Botão flutuante do WhatsApp -->
+    <a href="https://wa.me/5588993024853" target="_blank" class="whatsapp-float" aria-label="Fale conosco no WhatsApp" title="Fale conosco no WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
 
     <!-- PRODUCT DETAIL / ORDER MODAL -->
     <div id="orderModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
@@ -321,7 +389,7 @@
     <!-- JS CODE FOR FILTERING AND MODAL INTERACTION -->
     <script>
         // SEU NÚMERO DE WHATSAPP (Substitua abaixo pelo seu DDI + DDD + Número)
-        const WHATSAPP_NUMER = "5588993024853"; 
+        const WHATSAPP_NUMBER = "5588993024853";
 
         // Banco de dados dos produtos com os detalhes do seu anúncio
         const products = [
@@ -478,7 +546,7 @@
             {
                 id: 11,
                 name: "Inteligência Artificial: ChatGPT Plus",
-                category: "design",
+                category: "ia",
                 price: "R$ 24,90",
                 duration: "30 Dias",
                 badge: "Tecnologia",
@@ -493,7 +561,7 @@
             {
                 id: 12,
                 name: "Lovable IA - 100 Créditos",
-                category: "design",
+                category: "ia",
                 price: "R$ 35,90",
                 duration: "30 Dias",
                 badge: "Exclusivo",
@@ -529,9 +597,10 @@
                 noProducts.classList.remove('hidden');
             } else {
                 noProducts.classList.add('hidden');
-                filtered.forEach(p => {
+                filtered.forEach((p, index) => {
                     const card = document.createElement('div');
-                    card.className = "bg-premiumCard border border-gray-800 hover:border-amber-500/50 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/5 flex flex-col justify-between";
+                    card.className = "bg-premiumCard border border-gray-800 hover:border-amber-500/50 rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/5 flex flex-col justify-between animate-fade-in";
+                    card.style.animationDelay = `${index * 0.08}s`;
                     
                     let featuresHTML = '';
                     p.features.forEach(f => {
@@ -658,7 +727,7 @@
 Aguardo as instruções para pagamento e ativação do serviço!`;
 
             const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMER}?text=${encodedMessage}`;
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
             
             window.open(whatsappUrl, '_blank');
         }
